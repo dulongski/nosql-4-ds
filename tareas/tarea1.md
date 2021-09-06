@@ -1,6 +1,9 @@
 Bases de Datos No Relacionales
+
 Sebastian Dulong Salazar
+
 C.U. 188172
+
 # Tarea 1
 
 `use reviews`
