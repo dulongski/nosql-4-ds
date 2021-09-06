@@ -5,7 +5,7 @@ C.U. 188172
 
 `use reviews`
 
-12. Escribe una función find() para encontrar los restaurantes que no preparan ninguna cocina del continente americano y lograron una puntuación superior a 70 y se ubicaron en la longitud inferior a -65.754168.
+12. Escribe una función `find()` para encontrar los restaurantes que no preparan ninguna cocina del continente americano y lograron una puntuación superior a 70 y se ubicaron en la longitud inferior a -65.754168.
 
 `db.restaurants.find({"cuisine":{$not:/America/},"grades.score":{$gt:70},"address.coord.1":{$lt:-65.754168}},{"cuisine":1,"grades":1,"address.coord":1})`
 
