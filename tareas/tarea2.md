@@ -40,9 +40,9 @@ Un 58.9% de hispanohablantes interactúan por la noche (la mayoría).
 
 ``` javascript
 db.tweets.aggregate([
-    {$addFields: { "user.created_at": { "$toDate": "$user.created_at" }}}, //la función $toDate cabia string a ISODate para poder ordenarlos ascendentemente por fecha
-    {$group: {_id:{"creado":"$user.created_at","timezone":"$user.time_zone"}}},
-    {$sort: {"_id.creado":1}}
+{$addFields: { "user.created_at": { "$toDate": "$user.created_at" }}}, //la función $toDate cabia string a ISODate para poder ordenarlos ascendentemente por fecha
+{$project:{"user.created_at":1,"user.time_zone":1}},
+{$sort: {"user.created_at":1}}
 ])
 ```
 
@@ -52,8 +52,8 @@ De 19:00:00 hrs a 6:59:59 hrs:
 
 ``` javascript
 db.tweets.aggregate([
-	{$match:{"created_at":/ (19|2[0-3]|0[0-6]):[0-5][0-9]:[0-5][0-9]/}},
-	{$group: {_id:"$user.time_zone", "conteo": {$count:{}}}}
+{$match:{"created_at":/ (19|2[0-3]|0[0-6]):[0-5][0-9]:[0-5][0-9]/}},
+{$group: {_id:"$user.time_zone", "conteo": {$count:{}}}}
 ]).sort({conteo:-1})
 ```
 
@@ -61,8 +61,8 @@ De 7:00:00 hrs a 18:59:59 hrs:
 
 ``` javascript
 db.tweets.aggregate([
-	{$match:{"created_at":/ (0[7-9]|1[0-8]):[0-5][0-9]:[0-5][0-9]/}},
-	{$group: {_id:"$user.time_zone", "conteo": {$count:{}}}}
+{$match:{"created_at":/ (0[7-9]|1[0-8]):[0-5][0-9]:[0-5][0-9]/}},
+{$group: {_id:"$user.time_zone", "conteo": {$count:{}}}}
 ]).sort({conteo:-1})
 ```
 
@@ -72,8 +72,8 @@ Supondremos que fama es equiparable a número de seguidores:
 
 ``` javascript
 db.tweets.aggregate([
-  {$group: {_id:{"lugar":"$user.time_zone","seguidores":"$user.followers_count"}}},
-  {$sort: {"_id.seguidores":-1}},
-  {$limit : 10}
+{$group: {_id:{"lugar":"$user.time_zone","seguidores":"$user.followers_count"}}},
+{$sort: {"_id.seguidores":-1}},
+{$limit : 10}
 ])
 ```
