@@ -72,8 +72,8 @@ Supondremos que fama es equiparable a número de seguidores:
 
 ``` javascript
 db.tweets.aggregate([
-{$group: {_id:{"lugar":"$user.time_zone","seguidores":"$user.followers_count"}}},
-{$sort: {"_id.seguidores":-1}},
+{$project:{"user.time_zone":1,"user.followers_count":1}},
+{$sort: {"user.followers_count":-1}},
 {$limit : 10}
 ])
 ```
